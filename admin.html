@@ -169,34 +169,142 @@
 <body>
 
     <!-- Sidebar Navigation -->
-    <nav id="sidebar">
-        <div class="brand">
-            <i class="fa-solid fa-graduation-cap text-primary"></i>
-            <span>Smart School</span>
+ <!-- KODE REVISI SIDEBAR DENGAN SUB-MENU COMPLETE -->
+<aside class="sidebar bg-white border-end p-3" style="width: 280px; min-height: 100vh;">
+    <!-- Logo & Header -->
+    <div class="d-flex align-items-center gap-2 mb-4 px-2">
+        <i class="fa-solid fa-graduation-cap text-primary fs-3"></i>
+        <h5 class="fw-bold mb-0 text-primary">Smart School</h5>
+    </div>
+
+    <div class="nav-menu">
+        <!-- 1. MAIN DASHBOARD -->
+        <div class="menu-category text-muted text-uppercase fw-bold text-xs mb-2 ms-2">Main Dashboard</div>
+        <div class="mb-2">
+            <a class="nav-link fw-semibold text-dark d-flex justify-content-between align-items-center p-2 rounded" data-bs-toggle="collapse" href="#sub-dashboard">
+                <span><i class="fa-solid fa-chart-pie me-2 text-primary"></i> Executive Overview</span>
+                <i class="fa-solid fa-chevron-down fs-7"></i>
+            </a>
+            <div class="collapse show ps-3 ms-2 border-start mt-1" id="sub-dashboard">
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Ringkasan Statistik</a>
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Grafik Kehadiran</a>
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Pengumuman Staff</a>
+            </div>
         </div>
 
-        <div class="nav-category">Main Dashboard</div>
-        <a href="#overview" class="nav-link active" data-bs-toggle="tab"><i class="fa-solid fa-chart-pie"></i> Executive Overview</a>
+        <!-- 2. MASTER DATA -->
+        <div class="menu-category text-muted text-uppercase fw-bold text-xs mb-2 ms-2 mt-3">Master Data</div>
+        
+        <!-- Data Guru -->
+        <div class="mb-1">
+            <a class="nav-link fw-semibold text-dark d-flex justify-content-between align-items-center p-2 rounded" data-bs-toggle="collapse" href="#sub-guru">
+                <span><i class="fa-solid fa-user-tie me-2 text-primary"></i> Data Guru</span>
+                <i class="fa-solid fa-chevron-down fs-7"></i>
+            </a>
+            <div class="collapse ps-3 ms-2 border-start mt-1" id="sub-guru">
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Direktori Guru</a>
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Tambah Guru Baru</a>
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Penugasan Wali Kelas</a>
+            </div>
+        </div>
 
-        <div class="nav-category">Master Data</div>
-        <a href="#guru" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-user-tie"></i> Data Guru</a>
-        <a href="#siswa" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-user-graduate"></i> Data Siswa</a>
-        <a href="#mapel" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-book"></i> Mata Pelajaran</a>
+        <!-- Data Siswa -->
+        <div class="mb-1">
+            <a class="nav-link fw-semibold text-dark d-flex justify-content-between align-items-center p-2 rounded" data-bs-toggle="collapse" href="#sub-siswa">
+                <span><i class="fa-solid fa-users me-2 text-primary"></i> Data Siswa</span>
+                <i class="fa-solid fa-chevron-down fs-7"></i>
+            </a>
+            <div class="collapse ps-3 ms-2 border-start mt-1" id="sub-siswa">
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Siswa Aktif</a>
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Manajemen Rombel</a>
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Alumni & Mutasi</a>
+            </div>
+        </div>
 
-        <div class="nav-category">LMS & CBT Ujian</div>
-        <a href="#soal" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-file-pen"></i> Bank Soal</a>
-        <a href="#ujian" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-clock-rotate-left"></i> Pengaturan Ujian</a>
-        <a href="#hasil-cbt" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-square-poll-vertical"></i> Hasil & Analisis Ujian</a>
+        <!-- Mata Pelajaran -->
+        <div class="mb-1">
+            <a class="nav-link fw-semibold text-dark d-flex justify-content-between align-items-center p-2 rounded" data-bs-toggle="collapse" href="#sub-mapel">
+                <span><i class="fa-solid fa-book me-2 text-primary"></i> Mata Pelajaran</span>
+                <i class="fa-solid fa-chevron-down fs-7"></i>
+            </a>
+            <div class="collapse ps-3 ms-2 border-start mt-1" id="sub-mapel">
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Daftar Mapel</a>
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Alokasi Jam (JPM)</a>
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> KKM / KKTP</a>
+            </div>
+        </div>
 
-        <div class="nav-category">E-Rapor</div>
-        <a href="#raport" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-file-invoice"></i> Kelola & Download Rapor</a>
+        <!-- 3. LMS & CBT UJIAN -->
+        <div class="menu-category text-muted text-uppercase fw-bold text-xs mb-2 ms-2 mt-3">LMS & CBT Ujian</div>
+        
+        <!-- Bank Soal -->
+        <div class="mb-1">
+            <a class="nav-link fw-semibold text-dark d-flex justify-content-between align-items-center p-2 rounded" data-bs-toggle="collapse" href="#sub-banksoal">
+                <span><i class="fa-solid fa-folder-open me-2 text-primary"></i> Bank Soal</span>
+                <i class="fa-solid fa-chevron-down fs-7"></i>
+            </a>
+            <div class="collapse ps-3 ms-2 border-start mt-1" id="sub-banksoal">
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Kelola Soal Ujian</a>
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Import Soal Excel/Word</a>
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Kategori & Level Soal</a>
+            </div>
+        </div>
 
-        <div class="nav-category">Developer & Admin</div>
-        <a href="#rest-api" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-code"></i> REST API Specs</a>
-        <a href="#sql-db" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-database"></i> Database SQL DDL</a>
-        <a href="#settings" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-gears"></i> Pengaturan Sistem</a>
-    </nav>
+        <!-- Pengaturan Ujian -->
+        <div class="mb-1">
+            <a class="nav-link fw-semibold text-dark d-flex justify-content-between align-items-center p-2 rounded" data-bs-toggle="collapse" href="#sub-pengaturan-ujian">
+                <span><i class="fa-solid fa-clock-rotate-left me-2 text-primary"></i> Pengaturan Ujian</span>
+                <i class="fa-solid fa-chevron-down fs-7"></i>
+            </a>
+            <div class="collapse ps-3 ms-2 border-start mt-1" id="sub-pengaturan-ujian">
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Jadwal Ujian CBT</a>
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Generate Token Ujian</a>
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Alokasi Ruang & Durasi</a>
+            </div>
+        </div>
 
+        <!-- Hasil Ujian -->
+        <div class="mb-1">
+            <a class="nav-link fw-semibold text-dark d-flex justify-content-between align-items-center p-2 rounded" data-bs-toggle="collapse" href="#sub-hasil-ujian">
+                <span><i class="fa-solid fa-chart-bar me-2 text-primary"></i> Hasil & Analisis Ujian</span>
+                <i class="fa-solid fa-chevron-down fs-7"></i>
+            </a>
+            <div class="collapse ps-3 ms-2 border-start mt-1" id="sub-hasil-ujian">
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Nilai Real-time</a>
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Ekspor Nilai Excel</a>
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Remedial & Pengayaan</a>
+            </div>
+        </div>
+
+        <!-- 4. E-RAPOR -->
+        <div class="menu-category text-muted text-uppercase fw-bold text-xs mb-2 ms-2 mt-3">E-Rapor</div>
+        <div class="mb-1">
+            <a class="nav-link fw-semibold text-dark d-flex justify-content-between align-items-center p-2 rounded" data-bs-toggle="collapse" href="#sub-rapor">
+                <span><i class="fa-solid fa-file-invoice me-2 text-primary"></i> Kelola & Download Rapor</span>
+                <i class="fa-solid fa-chevron-down fs-7"></i>
+            </a>
+            <div class="collapse ps-3 ms-2 border-start mt-1" id="sub-rapor">
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Input Nilai Rapor</a>
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Catatan Wali Kelas</a>
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Cetak E-Rapor PDF</a>
+            </div>
+        </div>
+
+        <!-- 5. DEVELOPER & ADMIN -->
+        <div class="menu-category text-muted text-uppercase fw-bold text-xs mb-2 ms-2 mt-3">Developer & Admin</div>
+        <div class="mb-1">
+            <a class="nav-link fw-semibold text-dark d-flex justify-content-between align-items-center p-2 rounded" data-bs-toggle="collapse" href="#sub-dev">
+                <span><i class="fa-solid fa-code me-2 text-primary"></i> Pengaturan Developer</span>
+                <i class="fa-solid fa-chevron-down fs-7"></i>
+            </a>
+            <div class="collapse ps-3 ms-2 border-start mt-1" id="sub-dev">
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> REST API Specs</a>
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Database SQL DDL</a>
+                <a href="#" class="nav-link py-1 text-secondary fs-7"><i class="fa-solid fa-angle-right me-1"></i> Pengaturan Sistem</a>
+            </div>
+        </div>
+    </div>
+</aside>
     <!-- Main Content Area -->
     <div id="content">
         <!-- Top Navbar -->
