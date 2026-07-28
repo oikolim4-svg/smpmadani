@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart School Engine - System Dashboard & Documentation</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Highlight.js for Code Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <style>
+        :root {
+            --sidebar-width: 260px;
+            --primary-color: #2b3674;
+            --secondary-color: #4318ff;
+            --bg-light: #f4f7fe;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+            color: #2b3674;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styling */
+        #sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #ffffff;
+            border-right: 1px solid #e9ecef;
+            z-index: 1000;
+            transition: all 0.3s;
+            overflow-y: auto;
+        }
+
+        #sidebar .brand {
+            padding: 20px 25px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #sidebar .nav-category {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #a310ed;
+            padding: 15px 25px 5px;
+            letter-spacing: 0.5px;
+        }
+
+        #sidebar .nav-link {
+            padding: 10px 25px;
+            color: #707ebe;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 4px solid transparent;
+            transition: all 0.2s;
+        }
+
+        #sidebar .nav-link:hover, #sidebar .nav-link.active {
+            color: var(--secondary-color);
+            background-color: #f7f9ff;
+            border-left-color: var(--secondary-color);
+        }
+
+        /* Main Content */
+        #content {
+            margin-left: var(--sidebar-width);
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        .top-navbar {
+            background: #ffffff;
+            padding: 15px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-custom {
+            background: #ffffff;
+            border-radius: 16px;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            padding: 24px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: #f4f7fe;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .table-custom {
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+
+        .table-custom tbody tr {
+            background-color: #ffffff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            border-radius: 10px;
+        }
+
+        .table-custom th {
+            border: none;
+            color: #a310ed;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .table-custom td {
+            border: none;
+            padding: 14px;
+            vertical-align: middle;
+        }
+
+        .badge-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        pre code {
+            border-radius: 12px;
+            max-height: 500px;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            #sidebar { margin-left: -260px; }
+            #sidebar.active { margin-left: 0; }
+            #content { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <nav id="sidebar">
+        <div class="brand">
+            <i class="fa-solid fa-graduation-cap text-primary"></i>
+            <span>Smart School</span>
+        </div>
+
+        <div class="nav-category">Main Dashboard</div>
+        <a href="#overview" class="nav-link active" data-bs-toggle="tab"><i class="fa-solid fa-chart-pie"></i> Executive Overview</a>
+
+        <div class="nav-category">Master Data</div>
+        <a href="#guru" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-user-tie"></i> Data Guru</a>
+        <a href="#siswa" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-user-graduate"></i> Data Siswa</a>
+        <a href="#mapel" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-book"></i> Mata Pelajaran</a>
+
+        <div class="nav-category">LMS & CBT Ujian</div>
+        <a href="#soal" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-file-pen"></i> Bank Soal</a>
+        <a href="#ujian" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-clock-rotate-left"></i> Pengaturan Ujian</a>
+        <a href="#hasil-cbt" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-square-poll-vertical"></i> Hasil & Analisis Ujian</a>
+
+        <div class="nav-category">E-Rapor</div>
+        <a href="#raport" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-file-invoice"></i> Kelola & Download Rapor</a>
+
+        <div class="nav-category">Developer & Admin</div>
+        <a href="#rest-api" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-code"></i> REST API Specs</a>
+        <a href="#sql-db" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-database"></i> Database SQL DDL</a>
+        <a href="#settings" class="nav-link" data-bs-toggle="tab"><i class="fa-solid fa-gears"></i> Pengaturan Sistem</a>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div id="content">
+        <!-- Top Navbar -->
+        <div class="top-navbar">
+            <div>
+                <h5 class="mb-0 fw-bold">Sistem Manajemen Sekolah & E-Rapor</h5>
+                <small class="text-muted">Versi 2.5 — GitHub Ready Standalone App</small>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <span class="badge bg-light text-dark border px-3 py-2"><i class="fa-solid fa-calendar me-1"></i> TA 2026/2027 Ganjil</span>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle rounded-pill px-3" type="button" id="userDropdown" data-bs-toggle="dropdown">
+                        <i class="fa-solid fa-circle-user me-1"></i> Administrator
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow">
+                        <li><a class="dropdown-item" href="#settings" data-bs-toggle="tab"><i class="fa-solid fa-gear me-2"></i> Pengaturan</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+
+            <!-- 1. EXECUTIVE OVERVIEW -->
+            <div class="tab-pane fade show active" id="overview">
+                <div class="row g-4 mb-4">
+                    <div class="col-md-3">
+                        <div class="card-custom stat-card">
+                            <div class="stat-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+                            <div>
+                                <small class="text-muted fw-semibold">Total Guru</small>
+                                <h3 class="mb-0 fw-bold">48</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card-custom stat-card">
+                            <div class="stat-icon" style="color: #05cd99; background: #e6f9f5;"><i class="fa-solid fa-users"></i></div>
+                            <div>
+                                <small class="text-muted fw-semibold">Total Siswa</small>
+                                <h3 class="mb-0 fw-bold">864</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card-custom stat-card">
+                            <div class="stat-icon" style="color: #ffb547; background: #fff8ec;"><i class="fa-solid fa-folder-open"></i></div>
+                            <div>
+                                <small class="text-muted fw-semibold">Bank Soal Aktif</small>
+                                <h3 class="mb-0 fw-bold">128</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card-custom stat-card">
+                            <div class="stat-icon" style="color: #e03137; background: #fde8e8;"><i class="fa-solid fa-file-pdf"></i></div>
+                            <div>
+                                <small class="text-muted fw-semibold">Rapor Ter-generate</small>
+                                <h3 class="mb-0 fw-bold">864</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-custom">
+                    <h5 class="fw-bold mb-3"><i class="fa-solid fa-rocket text-primary me-2"></i>Aksi Cepat Admin</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <button class="btn btn-outline-primary" onclick="switchTab('guru')"><i class="fa-solid fa-plus me-1"></i> Tambah Guru</button>
+                        <button class="btn btn-outline-primary" onclick="switchTab('siswa')"><i class="fa-solid fa-plus me-1"></i> Tambah Siswa</button>
+                        <button class="btn btn-outline-primary" onclick="switchTab('soal')"><i class="fa-solid fa-plus me-1"></i> Buat Soal Ujian</button>
+                        <button class="btn btn-outline-success" onclick="switchTab('hasil-cbt')"><i class="fa-solid fa-download me-1"></i> Download Hasil Ujian</button>
+                        <button class="btn btn-outline-danger" onclick="switchTab('raport')"><i class="fa-solid fa-file-arrow-down me-1"></i> Download E-Rapor PDF</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. DATA GURU -->
+            <div class="tab-pane fade" id="guru">
+                <div class="card-custom">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h5 class="fw-bold mb-1">Manajemen Data Guru</h5>
+                            <small class="text-muted">Tambah, edit, import excel, dan atur hak akses pendidik.</small>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-success"><i class="fa-solid fa-file-excel me-1"></i> Import Excel</button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalGuru"><i class="fa-solid fa-plus me-1"></i> Tambah Guru</button>
+                        </div>
+                    </div>
+                    <table class="table table-custom align-middle">
+                        <thead>
+                            <tr>
+                                <th>NIP / NIK</th>
+                                <th>Nama Lengkap</th>
+                                <th>Mata Pelajaran</th>
+                                <th>Status Hak Akses</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>19850312 201001 1 008</td>
+                                <td class="fw-bold">Dr. Budi Santoso, M.Pd.</td>
+                                <td>Matematika Lanjut</td>
+                                <td><span class="badge bg-success bg-opacity-10 text-success badge-status">Guru & Wali Kelas</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-light"><i class="fa-solid fa-pen text-primary"></i></button>
+                                    <button class="btn btn-sm btn-light"><i class="fa-solid fa-trash text-danger"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>19910724 201802 2 003</td>
+                                <td class="fw-bold">Siti Aminah, S.Si.</td>
+                                <td>Fisika & Kimia</td>
+                                <td><span class="badge bg-info bg-opacity-10 text-info badge-status">Guru Mapel</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-light"><i class="fa-solid fa-pen text-primary"></i></button>
+                                    <button class="btn btn-sm btn-light"><i class="fa-solid fa-trash text-danger"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 3. DATA SISWA -->
+            <div class="tab-pane fade" id="siswa">
+                <div class="card-custom">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h5 class="fw-bold mb-1">Manajemen Data Siswa</h5>
+                            <small class="text-muted">Kelola data siswa, rombel kelas, dan promosi/kelulusan.</small>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-success"><i class="fa-solid fa-file-excel me-1"></i> Import Siswa</button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSiswa"><i class="fa-solid fa-plus me-1"></i> Tambah Siswa</button>
+                        </div>
+                    </div>
+                    <table class="table table-custom align-middle">
+                        <thead>
+                            <tr>
+                                <th>NISN</th>
+                                <th>Nama Siswa</th>
+                                <th>Kelas / Rombel</th>
+                                <th>Gender</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>0081234567</td>
+                                <td class="fw-bold">Ahmad Dahlan</td>
+                                <td>X IPA 1</td>
+                                <td>Laki-laki</td>
+                                <td><span class="badge bg-primary bg-opacity-10 text-primary badge-status">Aktif</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-light"><i class="fa-solid fa-pen text-primary"></i></button>
+                                    <button class="btn btn-sm btn-light"><i class="fa-solid fa-trash text-danger"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 4. MATA PELAJARAN -->
+            <div class="tab-pane fade" id="mapel">
+                <div class="card-custom">
+                    <h5 class="fw-bold mb-3">Setting Mata Pelajaran & Penugasan</h5>
+                    <p class="text-muted">Konfigurasi mata pelajaran per kategori (Umum, Kejuruan, Mulok) dan alokasi guru pengampu.</p>
+                </div>
+            </div>
+
+            <!-- 5. BANK SOAL -->
+            <div class="tab-pane fade" id="soal">
+                <div class="card-custom">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="fw-bold mb-0">Bank Soal & Modul CBT</h5>
+                        <button class="btn btn-primary"><i class="fa-solid fa-plus me-1"></i> Tambah Soal Baru</button>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="border rounded-3 p-3 bg-light">
+                                <span class="badge bg-primary mb-2">Matematika</span>
+                                <h6>Paket Soal SAS Ganjil - Kelas 10</h6>
+                                <p class="small text-muted mb-2">40 Pilihan Ganda | 5 Essay | Support LaTeX & Gambar</p>
+                                <button class="btn btn-sm btn-outline-primary">Kelola Soal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. PENGATURAN UJIAN -->
+            <div class="tab-pane fade" id="ujian">
+                <div class="card-custom">
+                    <h5 class="fw-bold mb-3">Setting Jadwal & Keamanan CBT</h5>
+                    <p class="text-muted">Atur timer, token acak, browser lockdown, acak opsi & soal.</p>
+                </div>
+            </div>
+
+            <!-- 7. HASIL UJIAN -->
+            <div class="tab-pane fade" id="hasil-cbt">
+                <div class="card-custom">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h5 class="fw-bold mb-1">Hasil & Analisis Ujian CBT</h5>
+                            <small class="text-muted">Koreksi otomatis, koreksi essay, dan ekspor nilai.</small>
+                        </div>
+                        <button class="btn btn-success"><i class="fa-solid fa-file-excel me-1"></i> Download Hasil Ujian (.xlsx)</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. E-RAPORT -->
+            <div class="tab-pane fade" id="raport">
+                <div class="card-custom">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h5 class="fw-bold mb-1">E-Rapor Digital & Leger Nilai</h5>
+                            <small class="text-muted">Cetak Rapor per siswa, Rapor kolektif ZIP, dan Leger Kelas.</small>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-success"><i class="fa-solid fa-file-excel me-1"></i> Download Leger Excel</button>
+                            <button class="btn btn-danger"><i class="fa-solid fa-file-zipper me-1"></i> Download All PDF (ZIP)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9. REST API SPECS -->
+            <div class="tab-pane fade" id="rest-api">
+                <div class="card-custom">
+                    <h5 class="fw-bold mb-3"><i class="fa-solid fa-code text-primary me-2"></i>Daftar REST API Endpoints (CRUD)</h5>
+                    <p class="text-muted">Gunakan spesifikasi API ini untuk pengembang backend / frontend integrations.</p>
+                    <pre><code class="language-json">[
+  { "method": "GET", "endpoint": "/api/v1/exams", "desc": "Fetch list of exams" },
+  { "method": "POST", "endpoint": "/api/v1/exams", "desc": "Create new exam schedule" },
+  { "method": "POST", "endpoint": "/api/v1/cbt/sessions/start", "desc": "Start student CBT session" },
+  { "method": "POST", "endpoint": "/api/v1/cbt/sessions/{id}/answers", "desc": "Autosave answer" },
+  { "method": "GET", "endpoint": "/api/v1/raport/students/{id}/pdf", "desc": "Generate PDF Raport" }
+]</code></pre>
+                </div>
+            </div>
+
+            <!-- 10. DATABASE SQL -->
+            <div class="tab-pane fade" id="sql-db">
+                <div class="card-custom">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold mb-0"><i class="fa-solid fa-database text-primary me-2"></i>Struktur Database SQL (Relational DDL)</h5>
+                        <button class="btn btn-sm btn-outline-primary" onclick="copySQL()"><i class="fa-solid fa-copy me-1"></i> Salin SQL</button>
+                    </div>
+                    <pre><code class="language-sql" id="sqlCode">-- Table Users (Auth)
+CREATE TABLE users (
+    id VARCHAR(36) PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL CHECK (role IN ('ADMIN', 'GURU', 'SISWA')),
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table Teachers
+CREATE TABLE teachers (
+    id VARCHAR(36) PRIMARY KEY,
+    user_id VARCHAR(36) UNIQUE REFERENCES users(id),
+    nip VARCHAR(30) UNIQUE,
+    full_name VARCHAR(150) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table Students
+CREATE TABLE students (
+    id VARCHAR(36) PRIMARY KEY,
+    user_id VARCHAR(36) UNIQUE REFERENCES users(id),
+    nisn VARCHAR(20) UNIQUE,
+    full_name VARCHAR(150) NOT NULL,
+    class_id VARCHAR(36),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);</code></pre>
+                </div>
+            </div>
+
+            <!-- 11. SETTINGS -->
+            <div class="tab-pane fade" id="settings">
+                <div class="card-custom">
+                    <h5 class="fw-bold mb-3">Pengaturan Sistem & Pemeliharaan</h5>
+                    <div class="alert alert-warning border-0 d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation fs-4"></i>
+                        <div><strong>Danger Zone:</strong> Fitur reset data global akan menghapus data permanen. Pastikan melakukan backup terlebih dahulu.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modals Placeholder -->
+    <div class="modal fade" id="modalGuru" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header"><h5 class="modal-title">Tambah Data Guru</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3"><label class="form-label">NIP / NIK</label><input type="text" class="form-control"></div>
+                        <div class="mb-3"><label class="form-label">Nama Lengkap</label><input type="text" class="form-control"></div>
+                        <div class="mb-3"><label class="form-label">Email & No HP</label><input type="email" class="form-control"></div>
+                    </form>
+                </div>
+                <div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button><button class="btn btn-primary">Simpan</button></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+
+        function switchTab(tabId) {
+            const triggerEl = document.querySelector(`#sidebar a[href="#${tabId}"]`);
+            if(triggerEl) {
+                bootstrap.Tab.getInstance(triggerEl) ? bootstrap.Tab.getInstance(triggerEl).show() : new bootstrap.Tab(triggerEl).show();
+            }
+        }
+
+        function copySQL() {
+            const code = document.getElementById('sqlCode').innerText;
+            navigator.clipboard.writeText(code);
+            alert('SQL Script berhasil disalin!');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrated Smart Hub - LMS & Smart School Engine</title>
+    
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #0077B6;
+            --primary-hover: #005f93;
+            --secondary: #023E8A;
+            --accent: #48CAE4;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --border: #E2E8F0;
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0B132B;
+            --bg-card: #1C2541;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --border: #334155;
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Top Central Integration Controller Navbar */
+        .hub-navbar {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: #ffffff;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 2000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .system-status-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .view-switcher-btn {
+            border: 1px solid rgba(255,255,255,0.4);
+            color: #fff;
+            background: transparent;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .view-switcher-btn:hover, .view-switcher-btn.active {
+            background: #ffffff;
+            color: var(--secondary);
+        }
+
+        /* Iframe Engine Containers */
+        .app-container {
+            width: 100%;
+            height: calc(100vh - 58px);
+            border: none;
+            display: none;
+        }
+
+        .app-container.active {
+            display: block;
+        }
+
+        /* Shared Data Sync Overlay Bar (Feature Baru Tambahan) */
+        .sync-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 3000;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 5px solid #10B981;
+            box-shadow: var(--shadow-md);
+            border-radius: var(--radius);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateY(150%);
+            transition: var(--transition);
+        }
+
+        .sync-toast.show {
+            transform: translateY(0);
+        }
+
+        /* Modal Dual-Screen Split View */
+        .split-view-container {
+            display: flex;
+            width: 100%;
+            height: calc(100vh - 58px);
+        }
+
+        .split-frame {
+            width: 50%;
+            height: 100%;
+            border-right: 2px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CENTRAL INTEGRATOR CONTROLLER BAR -->
+    <header class="hub-navbar d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-3">
+            <h5 class="mb-0 fw-bold"><i class="fa-solid fa-network-wired me-2"></i>Smart School Integrator</h5>
+            <span class="system-status-badge">
+                <i class="fa-solid fa-circle text-success me-1"></i> Data Sync: Active
+            </span>
+        </div>
+
+        <!-- Mode View Switcher Controls -->
+        <div class="d-flex align-items-center gap-2">
+            <button class="view-switcher-btn active" id="btn-portal" onclick="switchView('portal')">
+                <i class="fa-solid fa-graduation-cap me-1"></i> LMS Portal Siswa & Staff
+            </button>
+            <button class="view-switcher-btn" id="btn-dashboard" onclick="switchView('dashboard')">
+                <i class="fa-solid fa-chart-line me-1"></i> Smart School Engine Dashboard
+            </button>
+            <button class="view-switcher-btn" id="btn-split" onclick="switchView('split')">
+                <i class="fa-solid fa-columns me-1"></i> Split Screen Mode
+            </button>
+        </div>
+
+        <!-- Controls & Sync Actions -->
+        <div class="d-flex align-items-center gap-2">
+            <button class="btn btn-sm btn-light text-dark fw-bold rounded-pill" onclick="triggerManualSync()">
+                <i class="fa-solid fa-rotate me-1"></i> Sync Data Now
+            </button>
+            <button class="btn btn-sm btn-outline-light rounded-circle" onclick="toggleTheme()" title="Ganti Tema">
+                <i class="fa-solid fa-moon" id="theme-icon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- CONTAINER 1: IFRAME FILE HTML 1 (LMS & Portal Digital SMP Al Islam Madani) -->
+    <iframe id="iframe-lms" class="app-container active" src="smp-madani-lms.html"></iframe>
+
+    <!-- CONTAINER 2: IFRAME FILE HTML 2 (Smart School Engine Dashboard) -->
+    <iframe id="iframe-engine" class="app-container" src="smart-school-engine.html"></iframe>
+
+    <!-- CONTAINER 3: SPLIT SCREEN VIEW (KEDUA SYSTEM JALAN BERSAMAAN) -->
+    <div id="split-container" class="app-container">
+        <div class="split-view-container">
+            <iframe id="iframe-split-lms" class="split-frame" src="smp-madani-lms.html"></iframe>
+            <iframe id="iframe-split-engine" class="split-frame" src="smart-school-engine.html"></iframe>
+        </div>
+    </div>
+
+    <!-- NOTIFIKASI SINKRONISASI OTOMATIS (FITUR TAMBAHAN) -->
+    <div class="sync-toast" id="syncToast">
+        <i class="fa-solid fa-circle-check text-success fs-4"></i>
+        <div>
+            <h6 class="mb-0 fw-bold" style="font-size: 0.9rem;">Sinkronisasi Realtime Berhasil</h6>
+            <small class="text-muted" id="syncToastText">Nilai CBT & E-Rapor telah tersinkronisasi ke Database Engine.</small>
+        </div>
+    </div>
+
+    <!-- BOOTSTRAP 5 & CORE INTEGRATION JAVASCRIPT ENGINE -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        /* ==========================================================================
+           1. CORE SWITCHER LOGIC (Menghubungkan & Berganti View)
+           ========================================================================== */
+        function switchView(viewType) {
+            // Update Tab Active Status
+            document.querySelectorAll('.view-switcher-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // Hide all Containers
+            document.querySelectorAll('.app-container').forEach(cnt => cnt.classList.remove('active'));
+
+            if (viewType === 'portal') {
+                document.getElementById('iframe-lms').classList.add('active');
+                document.getElementById('btn-portal').classList.add('active');
+            } else if (viewType === 'dashboard') {
+                document.getElementById('iframe-engine').classList.add('active');
+                document.getElementById('btn-dashboard').classList.add('active');
+            } else if (viewType === 'split') {
+                document.getElementById('split-container').classList.add('active');
+                document.getElementById('btn-split').classList.add('active');
+            }
+        }
+
+        /* ==========================================================================
+           2. CROSS-WINDOW COMMUNICATION BRIDGE (postMessage API Engine)
+              Menghubungkan Data Antara File 1 dan File 2 secara Realtime
+           ========================================================================== */
+        window.addEventListener('message', function(event) {
+            const data = event.data;
+
+            if (!data || !data.type) return;
+
+            // Fitur Tambahan 1: Ketika Guru mengunggah materi/soal di LMS, data langsung masuk ke Bank Soal Engine
+            if (data.type === 'NEW_SOAL_UPLOADED') {
+                showSyncNotification(`Bank Soal Baru [${data.subject}] berhasil disinkronkan ke Engine System.`);
+                forwardMessageToIframe('iframe-engine', data);
+            }
+
+            // Fitur Tambahan 2: Ketika Siswa Menyelesaikan Ujian CBT, Nilai Otomatis Terkirim ke E-Rapor Engine
+            if (data.type === 'CBT_EXAM_SUBMITTED') {
+                showSyncNotification(`Siswa ${data.studentName} menyelesaikan ujian ${data.subject}. Nilai E-Rapor diupdate.`);
+                forwardMessageToIframe('iframe-engine', data);
+            }
+
+            // Fitur Tambahan 3: Ketika PPDB Online Mengirimkan Pendaftaran
+            if (data.type === 'PPDB_NEW_REGISTRATION') {
+                showSyncNotification(`Pendaftaran PPDB Baru: ${data.studentName} tersimpan di Master Data Siswa.`);
+                forwardMessageToIframe('iframe-engine', data);
+            }
+        });
+
+        function forwardMessageToIframe(iframeId, messageData) {
+            const targetIframe = document.getElementById(iframeId);
+            if (targetIframe && targetIframe.contentWindow) {
+                targetIframe.contentWindow.postMessage(messageData, '*');
+            }
+        }
+
+        /* ==========================================================================
+           3. FITUR TAMBAHAN: MANUAL & AUTOMATIC PERIODIC SYNC ENGINE
+           ========================================================================== */
+        function triggerManualSync() {
+            showSyncNotification("Memulai sinkronisasi cepat antar sistem...");
+            
+            // Mengirimkan instruksi pembaruan data ke seluruh iframe
+            const syncPayload = { type: 'TRIGGER_FULL_SYNC', timestamp: new Date().toISOString() };
+            
+            forwardMessageToIframe('iframe-lms', syncPayload);
+            forwardMessageToIframe('iframe-engine', syncPayload);
+        }
+
+        function showSyncNotification(message) {
+            const toast = document.getElementById('syncToast');
+            const toastText = document.getElementById('syncToastText');
+            
+            toastText.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        /* Auto periodic sync every 3 minutes */
+        setInterval(() => {
+            triggerManualSync();
+        }, 180000);
+
+        /* ==========================================================================
+           4. GLOBAL THEME SYNCHRONIZER (LIGHT / DARK MODE)
+           ========================================================================== */
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            document.getElementById('theme-icon').className = newTheme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+
+            // Sinkronkan tema ke dalam iframe LMS
+            const lmsIframe = document.getElementById('iframe-lms').contentDocument;
+            if(lmsIframe && lmsIframe.documentElement) {
+                lmsIframe.documentElement.setAttribute('data-theme', newTheme);
+            }
+        }
+    </script>
+</body>
+</html>

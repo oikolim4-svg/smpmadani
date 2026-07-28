@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMS & Portal Digital - SMP Al Islam Madani</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & RESET
+           ========================================================================== */
+        :root {
+            --primary: #0077B6;
+            --primary-hover: #005f93;
+            --secondary: #023E8A;
+            --accent: #48CAE4;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --border: #E2E8F0;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.12);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0B132B;
+            --bg-card: #1C2541;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --border: #334155;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        button, input, select, textarea {
+            font-family: inherit;
+            outline: none;
+        }
+
+        /* ==========================================================================
+           2. HEADER & CENTERED NAVIGATION
+           ========================================================================== */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 5%;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo-centered {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .logo-centered h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-centered span {
+            color: var(--secondary);
+        }
+
+        .logo-tagline {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-toggle, .mobile-toggle {
+            background: var(--bg-body);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.2rem;
+        }
+
+        nav.nav-bar {
+            background: var(--secondary);
+            padding: 0 5%;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #FFFFFF;
+            padding: 14px 18px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            display: inline-block;
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom-color: var(--accent);
+        }
+
+        /* ==========================================================================
+           3. HERO SECTION WITH CANVAS PARTICLES
+           ========================================================================== */
+        .hero {
+            position: relative;
+            min-height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 60px 20px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+        }
+
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 850px;
+        }
+
+        .hero-badge {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .hero h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            opacity: 0.9;
+            margin-bottom: 28px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #002855;
+        }
+
+        .btn-primary:hover {
+            background: #90E0EF;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #FFFFFF;
+            border: 2px solid #FFFFFF;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* ==========================================================================
+           4. PAGE VIEWS SYSTEM
+           ========================================================================== */
+        .page-view {
+            display: none;
+            padding: 40px 5%;
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+
+        .page-view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--secondary);
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ==========================================================================
+           5. TIMELINE / SCROLL STORYTELLING
+           ========================================================================== */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: var(--bg-card);
+            border: 4px solid var(--primary);
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-left { left: 0; }
+        .timeline-right { left: 50%; }
+
+        .timeline-right::after { left: -10px; }
+
+        .timeline-content {
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .timeline-content h3 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+
+        /* ==========================================================================
+           6. COUNTER STATS SECTION
+           ========================================================================== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: var(--radius);
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================================================
+           7. LMS COURSES & GRID CARDS
+           ========================================================================== */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-img {
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--primary);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-body h3 {
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .card-body p {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-bottom: 15px;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            padding-top: 12px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           8. PRICING / TUITION TABLE
+           ========================================================================== */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: #fff;
+            padding: 4px 14px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 15px 0;
+        }
+
+        .pricing-features {
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 8px 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border-bottom: 1px dashed var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ==========================================================================
+           9. FAQ ACCORDION
+           ========================================================================== */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 16px 20px;
+            background: none;
+            border: none;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.98rem;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .faq-answer {
+            padding: 0 20px 16px 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-item.active .faq-question {
+            color: var(--primary);
+        }
+
+        /* ==========================================================================
+           10. GALLERY & LIGHTBOX
+           ========================================================================== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            cursor: pointer;
+            height: 180px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        /* Lightbox Modal */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-img {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 8px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* ==========================================================================
+           11. FORM & VALIDATION
+           ========================================================================== */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.88rem;
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+        }
+
+        .error-msg {
+            color: #EF4444;
+            font-size: 0.78rem;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .map-container {
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            height: 100%;
+            min-height: 300px;
+        }
+
+        /* Dynamic Table Style */
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .custom-table th {
+            background: var(--primary);
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .custom-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.88rem;
+        }
+
+        .custom-table tr:hover {
+            background-color: rgba(0, 119, 182, 0.05);
+        }
+
+        .badge-status {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .badge-success { background: #DCFCE7; color: #166534; }
+        .badge-warning { background: #FEF3C7; color: #92400E; }
+        .badge-info { background: #E0F2FE; color: #075985; }
+
+        /* ==========================================================================
+           12. FOOTER & BACK TO TOP
+           ========================================================================== */
+        footer {
+            background: var(--secondary);
+            color: #FFFFFF;
+            padding: 50px 5% 20px 5%;
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            color: var(--accent);
+        }
+
+        .footer-col p, .footer-col a {
+            color: #CBD5E1;
+            font-size: 0.88rem;
+            line-height: 1.8;
+            display: block;
+        }
+
+        .footer-col a:hover {
+            color: #FFFFFF;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            font-size: 0.82rem;
+            color: #94A3B8;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: var(--primary);
+            color: #fff;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            box-shadow: var(--shadow-md);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+            font-size: 1.2rem;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ==========================================================================
+           13. RESPONSIVE MEDIA QUERIES
+           ========================================================================== */
+        @media (max-width: 768px) {
+            .mobile-toggle { display: flex; }
+            .nav-bar { display: none; }
+            .nav-bar.mobile-open { display: block; }
+            .nav-links { flex-direction: column; }
+            .nav-links a { width: 100%; text-align: center; padding: 12px; }
+
+            .hero h2 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+
+            .timeline::after { left: 20px; }
+            .timeline-item { width: 100%; padding-left: 50px; padding-right: 10px; }
+            .timeline-item::after { left: 10px; }
+            .timeline-right { left: 0; }
+
+            .contact-wrapper { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <button class="theme-toggle" id="theme-btn" aria-label="Toggle theme">
+                <span id="theme-icon">🌙</span> <span id="theme-text">Dark</span>
+            </button>
+
+            <div class="logo-centered">
+                <h1>SMP AL ISLAM <span>MADANI</span></h1>
+                <div class="logo-tagline">LMS & Portal Digital Integratif Kurikulum Merdeka</div>
+            </div>
+
+            <div class="header-actions">
+                <button class="btn btn-primary" onclick="switchPage('portal')" style="padding: 6px 14px; font-size: 0.85rem;">Portal Siswa</button>
+                <button class="btn btn-outline" onclick="switchPage('login')" style="padding: 6px 14px; font-size: 0.85rem; color: var(--primary); border-color: var(--primary);">Login Staff</button>
+                <button class="mobile-toggle" id="mobile-btn" aria-label="Toggle menu">☰</button>
+            </div>
+        </div>
+
+        <nav class="nav-bar" id="main-nav">
+            <div class="nav-links">
+                <a href="#home" class="nav-item active" onclick="switchPage('home')">Beranda</a>
+                <a href="#courses" class="nav-item" onclick="switchPage('courses')">Mata Pelajaran (LMS)</a>
+                <a href="#cbt" class="nav-item" onclick="switchPage('cbt')">Ujian CBT</a>
+                <a href="#upload-materi" class="nav-item" onclick="switchPage('upload-materi')">Upload Materi & Soal</a>
+                <a href="#erapor" class="nav-item" onclick="switchPage('erapor')">e-Rapor Merdeka</a>
+                <a href="#ppdb" class="nav-item" onclick="switchPage('ppdb')">PPDB Online</a>
+                <a href="#kurikulum" class="nav-item" onclick="switchPage('kurikulum')">Kurikulum & Alur</a>
+                <a href="#tuition" class="nav-item" onclick="switchPage('tuition')">Biaya & Pendaftaran</a>
+                <a href="#gallery" class="nav-item" onclick="switchPage('gallery')">Galeri Sekolah</a>
+                <a href="#faq" class="nav-item" onclick="switchPage('faq')">FAQ</a>
+                <a href="#contact" class="nav-item" onclick="switchPage('contact')">Kontak</a>
+                <a href="#login" class="nav-item" onclick="switchPage('login')">Login Staff</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- PAGE 1: HOME PAGE -->
+    <div id="page-home" class="page-view active">
+        <section class="hero">
+            <canvas id="hero-canvas"></canvas>
+            <div class="hero-content">
+                <span class="hero-badge">Sistem Terpadu Kurikulum Merdeka</span>
+                <h2>Membentuk Generasi Islam Rabbani, Cerdas, dan Berkarakter</h2>
+                <p>Platform Learning Management System (LMS), Ujian CBT AKM, e-Rapor Otomatis, dan PPDB Online Terintegrasi di SMP Al Islam Madani.</p>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="switchPage('cbt')">Portal Ujian CBT</button>
+                    <button class="btn btn-outline" onclick="switchPage('ppdb')">Form PPDB Online</button>
+                </div>
+            </div>
+        </section>
+
+        <section style="padding: 30px 0;">
+            <div class="section-header">
+                <h2>SMP Al Islam Madani Dalam Angka</h2>
+                <p>Komitmen kami dalam memberikan pendidikan islami terbaik yang terintegrasi dengan teknologi digital.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" data-target="850">0</div>
+                    <div class="stat-label">Siswa Aktif</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="48">0</div>
+                    <div class="stat-label">Pengajar Profesional</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="32">0</div>
+                    <div class="stat-label">Modul LMS Interaktif</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-label">% Integrasi e-Rapor Otomatis</div>
+                </div>
+            </div>
+        </section>
+
+        <section style="padding: 20px 0;">
+            <div class="section-header">
+                <h2>Keunggulan Ekosistem Digital Madani</h2>
+            </div>
+            <div class="grid-cards">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>📝 CBT Kurikulum Merdeka</h3>
+                        <p>Mendukung tipe soal AKM (Pilihan Ganda Kompleks, Menjodohkan, Isian) lengkap dengan Anti-Curang & Pemetaan TP/CP.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h3>📊 Auto e-Rapor & Peringkat</h3>
+                        <p>Tarik nilai CBT otomatis menjadi Nilai Akhir (NA), generate deskripsi capaian kompetensi, dan analisis peringkat siswa.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h3>💳 PPDB & Virtual Account</h3>
+                        <p>Pendaftaran calon siswa baru secara mandiri, upload berkas, kartu tes otomatis, dan integrasi biaya pendaftaran.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- PAGE 2: COURSES -->
+    <div id="page-courses" class="page-view">
+        <div class="section-header">
+            <h2>Modul & Mata Pelajaran Digital</h2>
+            <p>Pilih kelas interaktif untuk mengakses modul, kuis harian, dan forum diskusi.</p>
+        </div>
+
+        <div class="grid-cards">
+            <div class="card">
+                <div class="card-img" style="background-image: url('https://picsum.photos/400/250?random=1');">
+                    <span class="card-badge">Kelas VII</span>
+                </div>
+                <div class="card-body">
+                    <h3>Pendidikan Agama Islam & Tahfiz</h3>
+                    <p>Pembahasan Fiqih ibadah, Aqidah, Akhlak, serta target hafalan Juz 30 dan Juz 29.</p>
+                    <div class="card-meta">
+                        <span>Ust. Ahmad Fauzi, S.Pd.I</span>
+                        <span>12 Modul</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img" style="background-image: url('https://picsum.photos/400/250?random=2');">
+                    <span class="card-badge">Kelas VIII</span>
+                </div>
+                <div class="card-body">
+                    <h3>Matematika Terpadu</h3>
+                    <p>Konsep aljabar, geometri, dan logika matematika berbasis problem-based learning.</p>
+                    <div class="card-meta">
+                        <span>Ibu Ratna Dewi, M.Pd</span>
+                        <span>16 Modul</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img" style="background-image: url('https://picsum.photos/400/250?random=3');">
+                    <span class="card-badge">Kelas IX</span>
+                </div>
+                <div class="card-body">
+                    <h3>IPA & Sains Islam</h3>
+                    <p>Eksperimen fisika dan biologi terapan dengan Tadabbur ayat-ayat alam semesta.</p>
+                    <div class="card-meta">
+                        <span>Bpk. Hendra Wijaya, M.Si</span>
+                        <span>14 Modul</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img" style="background-image: url('https://picsum.photos/400/250?random=4');">
+                    <span class="card-badge">Semua Kelas</span>
+                </div>
+                <div class="card-body">
+                    <h3>Bahasa Inggris & Coding</h3>
+                    <p>Program literasi digital, percakapan internasional, dan pengenalan logika pemrograman komputer.</p>
+                    <div class="card-meta">
+                        <span>Team ICT Madani</span>
+                        <span>10 Modul</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 3: UJIAN CBT -->
+    <div id="page-cbt" class="page-view">
+        <div class="section-header">
+            <h2>Modul Ujian CBT (Computer-Based Test)</h2>
+            <p>Sistem Asesmen Formatif & Sumatif Sesuai Standar Kurikulum Merdeka & AKM</p>
+        </div>
+
+        <div class="grid-cards" style="margin-bottom: 30px;">
+            <div class="card">
+                <div class="card-body">
+                    <h3>🎯 Pemetaan TP & CP</h3>
+                    <p>Setiap butir soal dikorelasikan langsung ke Tujuan Pembelajaran (TP) dan Capaian Pembelajaran (CP) untuk analisis ketercapaian siswa.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3>📝 Soal AKM Kompleks</h3>
+                    <p>Mendukung Pilihan Ganda Biasa, Pilihan Ganda Kompleks (Centang Banyak), Menjodohkan (Matching Pair), Isian Singkat, dan Uraian.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3>🔒 Sistem Anti-Curang</h3>
+                    <p>Integritas ujian terjamin dengan Mode Fullscreen, Deteksi Alih Tab (Auto-Lock), Acak Soal & Opsi, serta Pembatasan Screenshot.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3>📊 Auto-Remedial</h3>
+                    <p>Analisis butir soal (tingkat kesukaran & daya pembeda) otomatis memetakan siswa yang butuh remedial pada TP tertentu.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="padding: 25px;">
+            <h3 style="color: var(--primary); margin-bottom: 15px;">Jadwal Ujian & Asesmen Aktif</h3>
+            <div style="overflow-x: auto;">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Mata Pelajaran</th>
+                            <th>Jenis Asesmen</th>
+                            <th>Target TP / CP</th>
+                            <th>Waktu Ujian</th>
+                            <th>Durasi</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Matematika</strong></td>
+                            <td>Sumatif Tengah Semester (STS)</td>
+                            <td>TP 8.1 - Aljabar & Persamaan Linear</td>
+                            <td>Rabu, 15 Okt 2026 (08:00 WIB)</td>
+                            <td>90 Menit</td>
+                            <td><button class="btn btn-primary" style="padding: 5px 12px; font-size: 0.8rem;" onclick="simulasiCBT()">Mulai Ujian</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>IPA Terpadu</strong></td>
+                            <td>Formatif 2 (Kuis AKM)</td>
+                            <td>TP 8.3 - System Organ Manusia</td>
+                            <td>Kamis, 16 Okt 2026 (10:00 WIB)</td>
+                            <td>45 Menit</td>
+                            <td><span class="badge-status badge-info">Belum Dibuka</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pendidikan Agama Islam</strong></td>
+                            <td>Sumatif Akhir Semester (SAS)</td>
+                            <td>TP 8.4 - Fiqih Muamalah & Akhlak</td>
+                            <td>Jumat, 17 Okt 2026 (08:00 WIB)</td>
+                            <td>60 Menit</td>
+                            <td><span class="badge-status badge-info">Belum Dibuka</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE NEW: UPLOAD MATERI DAN SOAL UJIAN (KHUSUS GURU & ADMINISTRATOR) -->
+    <div id="page-upload-materi" class="page-view">
+        <div class="section-header">
+            <h2>Portal Pengelola: Upload Materi & Bank Soal</h2>
+            <p>Halaman Khusus Administrator & Guru untuk Mengunggah Modul Belajar, Bahan Ajar, dan Bank Soal Ujian CBT</p>
+        </div>
+
+        <div class="contact-wrapper" style="margin-bottom: 30px;">
+            <!-- FORM 1: UPLOAD MATERI BELAJAR -->
+            <form class="contact-form" id="formUploadMateri" onsubmit="handleUploadMateri(event)">
+                <h3 style="color: var(--primary); margin-bottom: 15px;">📚 Upload Materi Pembelajaran</h3>
+
+                <div class="form-group">
+                    <label for="materi_kelas">Tingkat Kelas</label>
+                    <select id="materi_kelas" class="form-control" required>
+                        <option value="">-- Pilih Kelas --</option>
+                        <option value="VII">Kelas VII (Tujuh)</option>
+                        <option value="VIII">Kelas VIII (Delapan)</option>
+                        <option value="IX">Kelas IX (Sembilan)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="materi_mapel">Mata Pelajaran</label>
+                    <select id="materi_mapel" class="form-control" required>
+                        <option value="">-- Pilih Mapel --</option>
+                        <option value="PAI">Pendidikan Agama Islam & Tahfiz</option>
+                        <option value="MTK">Matematika Terpadu</option>
+                        <option value="IPA">IPA & Sains Islam</option>
+                        <option value="BIG">Bahasa Inggris & Coding</option>
+                        <option value="BIN">Bahasa Indonesia</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="materi_judul">Judul Modul / Materi</label>
+                    <input type="text" id="materi_judul" class="form-control" placeholder="Contoh: Bab 3 - Sistem Persamaan Linear" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="materi_deskripsi">Deskripsi Singkat & Instruksi</label>
+                    <textarea id="materi_deskripsi" rows="3" class="form-control" placeholder="Jelaskan ringkasan materi atau petunjuk untuk siswa..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="materi_file">Upload File Modul (PDF / PPT / DOC - Max 15MB)</label>
+                    <input type="file" id="materi_file" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="materi_link">Link Video / Media Pendukung (Opsional)</label>
+                    <input type="url" id="materi_link" class="form-control" placeholder="https://youtube.com/watch?v=...">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Upload Materi Pembelajaran</button>
+            </form>
+
+            <!-- FORM 2: INPUT / UPLOAD SOAL UJIAN CBT -->
+            <form class="contact-form" id="formUploadSoal" onsubmit="handleUploadSoal(event)">
+                <h3 style="color: var(--secondary); margin-bottom: 15px;">📝 Buat & Upload Soal Ujian (CBT)</h3>
+
+                <div class="form-group">
+                    <label for="soal_jenis">Jenis Asesmen Ujian</label>
+                    <select id="soal_jenis" class="form-control" required>
+                        <option value="Kuis Formatif">Kuis Formatif Harian</option>
+                        <option value="STS">Sumatif Tengah Semester (STS)</option>
+                        <option value="SAS">Sumatif Akhir Semester (SAS)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="soal_target_tp">Target Capaian / TP (Kurikulum Merdeka)</label>
+                    <input type="text" id="soal_target_tp" class="form-control" placeholder="Contoh: TP 8.1 - Aljabar Linear" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="soal_tipe">Bentuk / Tipe Soal AKM</label>
+                    <select id="soal_tipe" class="form-control" required>
+                        <option value="PG">Pilihan Ganda Biasa</option>
+                        <option value="PGK">Pilihan Ganda Kompleks (Centang Banyak)</option>
+                        <option value="ISIAN">Isian Singkat</option>
+                        <option value="URAIAN">Uraian / Essay</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="soal_teks">Pertanyaan Soal</label>
+                    <textarea id="soal_teks" rows="3" class="form-control" placeholder="Tuliskan butir soal di sini..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="soal_kunci">Kunci Jawaban / Opsi Benar</label>
+                    <input type="text" id="soal_kunci" class="form-control" placeholder="Contoh: Opsi A / Jawaban Singkat" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="soal_excel">Atau Import Bank Soal via File (Excel/Word Template)</label>
+                    <input type="file" id="soal_excel" class="form-control">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; background: var(--secondary); color: #fff;">Simpan Bank Soal CBT</button>
+            </form>
+        </div>
+
+        <!-- RIWAYAT & STATUS UPLOAD -->
+        <div class="card" style="padding: 25px;">
+            <h3 style="color: var(--primary); margin-bottom: 15px;">Daftar Berkas & Soal Yang Telah Diunggah</h3>
+            <div style="overflow-x: auto;">
+                <table class="custom-table" id="tabelUploadStatus">
+                    <thead>
+                        <tr>
+                            <th>Tipe Dokumen</th>
+                            <th>Mata Pelajaran</th>
+                            <th>Judul / Asesmen</th>
+                            <th>Pengunggah</th>
+                            <th>Tanggal Upload</th>
+                            <th>Status Modul</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge-status badge-info">Modul Materi</span></td>
+                            <td>Matematika</td>
+                            <td>Bab 3: Persamaan Linear Dua Variabel</td>
+                            <td>Ibu Ratna Dewi, M.Pd</td>
+                            <td>12 Okt 2026</td>
+                            <td><span class="badge-status badge-success">Terpublikasi</span></td>
+                            <td><button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.75rem; color: var(--primary); border-color: var(--primary);" onclick="alert('Membuka file modul...')">Prinjau</button></td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge-status badge-warning">Bank Soal CBT</span></td>
+                            <td>IPA Terpadu</td>
+                            <td>Kuis AKM Formatif Bab System Organ</td>
+                            <td>Bpk. Hendra Wijaya, M.Si</td>
+                            <td>14 Okt 2026</td>
+                            <td><span class="badge-status badge-success">Siap Ujian</span></td>
+                            <td><button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.75rem; color: var(--primary); border-color: var(--primary);" onclick="alert('Membuka bank soal...')">Prinjau</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 4: E-RAPOR INTEGRATION -->
+    <div id="page-erapor" class="page-view">
+        <div class="section-header">
+            <h2>Integrasi e-Rapor Kurikulum Merdeka</h2>
+            <p>Pengolahan Nilai Asesmen Otomatis, Deskripsi Capaian Kompetensi, dan Analisis Peringkat</p>
+        </div>
+
+        <div class="grid-cards" style="margin-bottom: 25px;">
+            <div class="card" style="padding: 20px;">
+                <h4>🔄 Tarik Nilai Otomatis</h4>
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 5px;">
+                    Nilai Formatif dan Sumatif (STS & SAS) ditarik otomatis dari CBT tanpa entri manual.
+                </p>
+            </div>
+            <div class="card" style="padding: 20px;">
+                <h4>💬 Auto-Generate Deskripsi</h4>
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 5px;">
+                    Sistem menyusun kalimat capaian kompetensi tertinggi dan yang perlu pendampingan secara presisi.
+                </p>
+            </div>
+            <div class="card" style="padding: 20px;">
+                <h4>🏆 Transkrip & Peringkat</h4>
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 5px;">
+                    Perhitungan Rata-rata Nilai Akhir (NA), predikat A-D, dan pemeringkatan kelas/paralel otomatis.
+                </p>
+            </div>
+        </div>
+
+        <div class="card" style="padding: 25px;">
+            <h3 style="color: var(--primary); margin-bottom: 15px;">Preview Rekap e-Rapor Siswa (Kelas VIII-A)</h3>
+            <div style="overflow-x: auto;">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Mata Pelajaran</th>
+                            <th>Nilai Formatif</th>
+                            <th>Nilai Sumatif</th>
+                            <th>Nilai Akhir (NA)</th>
+                            <th>Predikat</th>
+                            <th>Deskripsi Capaian Otomatis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Matematika</strong></td>
+                            <td>88</td>
+                            <td>92</td>
+                            <td><strong style="color: var(--primary);">90</strong></td>
+                            <td><span class="badge-status badge-success">A (Sangat Baik)</span></td>
+                            <td style="font-size: 0.82rem;">Menunjukkan penguasaan sangat baik dalam memahami Sistem Persamaan Linear Dua Variabel.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IPA Terpadu</strong></td>
+                            <td>82</td>
+                            <td>86</td>
+                            <td><strong style="color: var(--primary);">84</strong></td>
+                            <td><span class="badge-status badge-info">B (Baik)</span></td>
+                            <td style="font-size: 0.82rem;">Menunjukkan penguasaan baik dalam Struktur Sel, perlu pendampingan dalam Bab Gelombang Gelombang Cahaya.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bahasa Indonesia</strong></td>
+                            <td>90</td>
+                            <td>94</td>
+                            <td><strong style="color: var(--primary);">92</strong></td>
+                            <td><span class="badge-status badge-success">A (Sangat Baik)</span></td>
+                            <td style="font-size: 0.82rem;">Menunjukkan penguasaan sangat tinggi dalam Menulis Teks Laporan Hasil Observasi (LHO).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 20px; background: rgba(0, 119, 182, 0.08); padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div>
+                    <strong>Total Rata-Rata Nilai Akhir: 88.67</strong> | Predikat Keseluruhan: <span style="color: #166534; font-weight: bold;">Sangat Baik (A)</span>
+                </div>
+                <div>
+                    <strong>Peringkat Kelas:</strong> <span class="badge-status badge-success" style="font-size: 0.9rem;">Peringkat 2 dari 32 Siswa</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 5: PPDB ONLINE -->
+    <div id="page-ppdb" class="page-view">
+        <div class="section-header">
+            <h2>Pendaftaran Peserta Didik Baru (PPDB Online)</h2>
+            <p>Tahun Ajaran 2026/2027 - SMP Al Islam Madani</p>
+        </div>
+
+        <div class="contact-wrapper">
+            <!-- Form Pendaftaran -->
+            <form class="contact-form" id="ppdbForm" onsubmit="handlePPDBSubmit(event)">
+                <h3 style="color: var(--primary); margin-bottom: 15px;">Formulir Pendaftaran Siswa Baru</h3>
+
+                <div class="form-group">
+                    <label for="jalur">Jalur Pendaftaran</label>
+                    <select id="jalur" class="form-control" required>
+                        <option value="Prestasi">Jalur Prestasi Akademik / Non-Akademik</option>
+                        <option value="Zonasi">Jalur Reguler / Zonasi</option>
+                        <option value="Afirmasi">Jalur Afirmasi / Beasiswa</option>
+                        <option value="Perpindahan">Jalur Perpindahan Orang Tua</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="nama_siswa">Nama Lengkap Calon Siswa</label>
+                    <input type="text" id="nama_siswa" class="form-control" placeholder="Sesuai Akta Kelahiran" required>
+                </div>
+
+                <div class="grid-2" style="display: flex; gap: 10px;">
+                    <div class="form-group" style="flex:1;">
+                        <label for="nik">NIK Siswa</label>
+                        <input type="number" id="nik" class="form-control" placeholder="16 digit NIK" required>
+                    </div>
+                    <div class="form-group" style="flex:1;">
+                        <label for="nisn">NISN</label>
+                        <input type="number" id="nisn" class="form-control" placeholder="10 digit NISN" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="sekolah_asal">Nama Sekolah Asal (SD/MI)</label>
+                    <input type="text" id="sekolah_asal" class="form-control" placeholder="Contoh: SD Negeri 01 Madani" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="nama_ortu">Nama Orang Tua / Wali</label>
+                    <input type="text" id="nama_ortu" class="form-control" placeholder="Nama Ayah/Ibu" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="wa_ortu">Nomor WhatsApp Aktif</label>
+                    <input type="tel" id="wa_ortu" class="form-control" placeholder="08123456789" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="berkas">Upload Dokumen (KK / Akta / Ijazah - Max 5MB PDF/ZIP)</label>
+                    <input type="file" id="berkas" class="form-control">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Kirim Pendaftaran &amp; Dapatkan Invoice</button>
+            </form>
+
+            <!-- Rincian Biaya & Status -->
+            <div>
+                <div class="card" style="padding: 20px; margin-bottom: 20px;">
+                    <h3 style="color: var(--primary); margin-bottom: 12px;">Rincian Biaya PPDB 2026/2027</h3>
+                    <ul class="pricing-features" style="margin: 0;">
+                        <li><span>Formulir Pendaftaran &amp; Tes Seleksi CBT</span> <strong style="margin-left: auto;">Rp 250.000</strong></li>
+                        <li><span>Uang Pangkal / Biaya Pembangunan</span> <strong style="margin-left: auto;">Rp 6.500.000</strong></li>
+                        <li><span>Paket Seragam (5 Setel) &amp; Buku Paket</span> <strong style="margin-left: auto;">Rp 2.100.000</strong></li>
+                        <li><span>SPP Bulan Pertama (Bilingual Program)</span> <strong style="margin-left: auto;">Rp 1.850.000</strong></li>
+                    </ul>
+                    <div style="border-top: 2px solid var(--primary); margin-top: 15px; padding-top: 10px; display: flex; justify-content: space-between; font-weight: bold; font-size: 1.05rem;">
+                        <span>Total Investasi Awal:</span>
+                        <span style="color: var(--primary);">Rp 10.700.000</span>
+                    </div>
+                </div>
+
+                <div class="card" style="padding: 20px; background: rgba(72, 202, 228, 0.1); border-color: var(--accent);">
+                    <h4 style="color: var(--secondary);">💳 Integrasi Metode Pembayaran</h4>
+                    <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 6px;">
+                        Pembayaran dapat dilakukan melalui Virtual Account Bank (BCA, Mandiri, BSI, BRI), QRIS, atau Konfirmasi Manual via Whatsapp Admin. Status tagihan akan langsung terverifikasi secara otomatis.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 6: KURIKULUM & TIMELINE STORYTELLING -->
+    <div id="page-kurikulum" class="page-view">
+        <div class="section-header">
+            <h2>Alur Pendidikan & Kurikulum</h2>
+            <p>Tahapan pengembangan akademis dan karakter siswa dari awal masuk hingga kelulusan.</p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item timeline-left">
+                <div class="timeline-content">
+                    <h3>Fase 1: Masa Orientasi & Matrikulasi (Bulan 1-2)</h3>
+                    <p>Penguatan makhraj Al-Qur'an, pembentukan karakter disiplin islami, dan adaptasi pembelajaran digital LMS.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item timeline-right">
+                <div class="timeline-content">
+                    <h3>Fase 2: Eksplorasi Academics & Leadership (Tahun Ke-1)</h3>
+                    <p>Penerapan kurikulum merdeka terintegrasi, praktikum laboratorium sains, dan organisasi santri OSIS.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item timeline-left">
+                <div class="timeline-content">
+                    <h3>Fase 3: Pendalaman & Research Project (Tahun Ke-2)</h3>
+                    <p>Penyusunan karya tulis ilmiah remaja, program English/Arabic Camp, dan ujian sertifikasi Tahfiz.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item timeline-right">
+                <div class="timeline-content">
+                    <h3>Fase 4: Kelulusan & Kesiapan SMA Unggulan (Tahun Ke-3)</h3>
+                    <p>Bimbingan intensif ujian nasional/SMK/SMA favorit serta pemantapan hafalan Al-Qur'an mutqin.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 7: TUITION & PRICING -->
+    <div id="page-tuition" class="page-view">
+        <div class="section-header">
+            <h2>Investasi Pendidikan (PPDB)</h2>
+            <p>Informasi transparansi biaya pendidikan dan paket investasi masa depan putra-putri Anda.</p>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Reguler Digital</h3>
+                <div class="price">Rp 1.200.000 <span style="font-size: 0.9rem; font-weight: normal;">/ bln</span></div>
+                <ul class="pricing-features">
+                    <li>Akses Penuh LMS Madani</li>
+                    <li>Program Tahfiz 3 Juz</li>
+                    <li>Ekstrakurikuler Wajib</li>
+                    <li>Laporan Hasil Belajar Bulanan</li>
+                </ul>
+                <button class="btn btn-outline" style="border-color: var(--primary); color: var(--primary); width: 100%;" onclick="switchPage('ppdb')">Daftar Reguler</button>
+            </div>
+
+            <div class="pricing-card featured">
+                <span class="pricing-badge">Paling Diminati</span>
+                <h3>Fullday Bilingual</h3>
+                <div class="price">Rp 1.850.000 <span style="font-size: 0.9rem; font-weight: normal;">/ bln</span></div>
+                <ul class="pricing-features">
+                    <li>Semua Fasilitas Reguler</li>
+                    <li>Program Tahfiz Target 5 Juz</li>
+                    <li>Native Speaker English/Arabic</li>
+                    <li>Makan Siang Sehat & Nutrisi</li>
+                    <li>Modul Coding & Robotics</li>
+                </ul>
+                <button class="btn btn-primary" style="width: 100%;" onclick="switchPage('ppdb')">Daftar Fullday</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 8: GALLERY & LIGHTBOX -->
+    <div id="page-gallery" class="page-view">
+        <div class="section-header">
+            <h2>Galeri Kegiatan Sekolah</h2>
+            <p>Momen-momen berharga dalam aktivitas belajar, ibadah, dan prestasi siswa SMP Al Islam Madani.</p>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openLightbox('https://picsum.photos/800/600?random=11')">
+                <img src="https://picsum.photos/400/300?random=11" alt="Kegiatan Tahfiz">
+            </div>
+            <div class="gallery-item" onclick="openLightbox('https://picsum.photos/800/600?random=12')">
+                <img src="https://picsum.photos/400/300?random=12" alt="Praktikum Lab Sains">
+            </div>
+            <div class="gallery-item" onclick="openLightbox('https://picsum.photos/800/600?random=13')">
+                <img src="https://picsum.photos/400/300?random=13" alt="Pembelajaran Komputer LMS">
+            </div>
+            <div class="gallery-item" onclick="openLightbox('https://picsum.photos/800/600?random=14')">
+                <img src="https://picsum.photos/400/300?random=14" alt="Ekstrakurikuler Archery">
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 9: FAQ ACCORDION -->
+    <div id="page-faq" class="page-view">
+        <div class="section-header">
+            <h2>Pertanyaan Sering Diajukan (FAQ)</h2>
+            <p>Temukan jawaban cepat terkait sistem pembelajaran LMS, Ujian CBT, e-Rapor, dan PPDB Online.</p>
+        </div>
+
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question">Bagaimana cara mengakses LMS & CBT SMP Al Islam Madani? <span>+</span></button>
+                <div class="faq-answer">Setiap siswa yang telah resmi terdaftar akan mendapatkan akun NISN dan Password khusus untuk login ke Portal Siswa Madani.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Apakah hasil ujian CBT otomatis langsung masuk ke e-Rapor? <span>+</span></button>
+                <div class="faq-answer">Ya, sistem e-Rapor Kurikulum Merdeka terhubung secara instan dengan CBT. Nilai formatif dan sumatif dikalkulasi otomatis menjadi Nilai Akhir lengkap dengan deskripsi capaian.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Apa syarat dan alur pendaftaran PPDB Online? <span>+</span></button>
+                <div class="faq-answer">Cukup mengisi form PPDB Online, memilih jalur pendaftaran, melakukan pembayaran biaya tes via Virtual Account/QRIS, dan mencetak kartu ujian seleksi CBT.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 10: CONTACT FORM & GOOGLE MAPS -->
+    <div id="page-contact" class="page-view">
+        <div class="section-header">
+            <h2>Hubungi Kami</h2>
+            <p>Silakan kirimkan pertanyaan atau jadwalkan kunjungan ke kampus SMP Al Islam Madani.</p>
+        </div>
+
+        <div class="contact-wrapper">
+            <form class="contact-form" id="contactForm" onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Nama Lengkap Orang Tua / Wali</label>
+                    <input type="text" id="name" class="form-control" placeholder="Contoh: Bpk. Rian Hidayat">
+                    <div class="error-msg" id="nameError">Nama harus diisi minimal 3 karakter.</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Alamat Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="email@domain.com">
+                    <div class="error-msg" id="emailError">Format email tidak valid.</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Nomor WhatsApp</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="08123456789">
+                    <div class="error-msg" id="phoneError">Nomor telepon harus valid.</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Pesan / Pertanyaan</label>
+                    <textarea id="message" rows="4" class="form-control" placeholder="Tuliskan pertanyaan Anda di sini..."></textarea>
+                    <div class="error-msg" id="msgError">Pesan tidak boleh kosong.</div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Kirim Pesan</button>
+            </form>
+
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8195613507864!3d-6.194741395493371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e673291f31e3!2sJakarta!5e0!3m2!1sid!2sid!4v1650000000000!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 11: STUDENT PORTAL DASHBOARD (LMS DEMO) -->
+    <div id="page-portal" class="page-view">
+        <div class="section-header">
+            <h2>Portal Siswa - Student Dashboard</h2>
+            <p>Selamat datang kembali, <strong>Muhammad Azka (Kelas VIII-A)</strong></p>
+        </div>
+
+        <div class="grid-cards" style="margin-bottom: 25px;">
+            <div class="card" style="padding: 20px; border-left: 4px solid var(--primary);">
+                <h4>Hafalan Qur'an Hari Ini</h4>
+                <p style="margin: 5px 0;">Surah An-Naba' (Ayat 1-20)</p>
+                <small style="color: green; font-weight: bold;">✓ Terverifikasi Ust. Fauzi</small>
+            </div>
+            <div class="card" style="padding: 20px; border-left: 4px solid var(--accent);">
+                <h4>Jadwal Ujian CBT Mendatang</h4>
+                <p style="margin: 5px 0;">STS Matematika Kurikulum Merdeka</p>
+                <small style="color: #E11D48; font-weight: bold;">Rabu, 15 Okt 2026 (08:00 WIB)</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 12: LOGIN ADMIN & GURU -->
+    <div id="page-login" class="page-view">
+        <div class="section-header">
+            <h2>Portal Login Staff & Guru</h2>
+            <p>Akses Sistem Administrasi, CBT, dan Input e-Rapor SMP Al Islam Madani</p>
+        </div>
+
+        <div style="max-width: 480px; margin: 0 auto;">
+            <div class="card" style="padding: 30px;">
+                <!-- Tab Selection Role -->
+                <div style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 10px;">
+                    <button id="tab-guru" onclick="switchRole('guru')" style="flex: 1; padding: 10px; border: none; background: var(--primary); color: white; border-radius: 6px; font-weight: 700; cursor: pointer; transition: var(--transition);">
+                        👨‍🏫 Login Guru
+                    </button>
+                    <button id="tab-admin" onclick="switchRole('admin')" style="flex: 1; padding: 10px; border: none; background: var(--bg-body); color: var(--text-main); border-radius: 6px; font-weight: 700; cursor: pointer; transition: var(--transition);">
+                        ⚙️ Login Admin
+                    </button>
+                </div>
+
+                <!-- Form Login -->
+                <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+                    <input type="hidden" id="userRole" value="guru">
+
+                    <div class="form-group">
+                        <label id="identityLabel" for="username">NIP / NUPTK Guru</label>
+                        <input type="text" id="username" class="form-control" placeholder="Masukkan NIP / NUPTK" required>
+                        <div class="error-msg" id="usernameError">Username / NIP wajib diisi.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Kata Sandi</label>
+                        <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                        <div class="error-msg" id="passwordError">Kata sandi minimal 6 karakter.</div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 0.85rem;">
+                        <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                            <input type="checkbox" id="rememberMe"> Ingat Saya
+                        </label>
+                        <a href="#" onclick="alert('Silakan hubungi Administrator IT Sekolah untuk mereset kata sandi Anda.')" style="color: var(--primary); font-weight: 600;">Lupa Password?</a>
+                    </div>
+
+                    <button type="submit" id="btnLogin" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        Masuk Portal Guru
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 13: DASHBOARD GURU / ADMIN (SETELAH LOGIN) -->
+    <div id="page-dashboard-staff" class="page-view">
+        <div class="section-header">
+            <h2 id="dashboardTitle">Dashboard Guru</h2>
+            <p id="dashboardSubtitle">Selamat datang kembali, Ust. Ahmad Fauzi, S.Pd.I</p>
+        </div>
+
+        <div class="grid-cards" style="margin-bottom: 25px;">
+            <div class="card" style="padding: 20px; border-left: 4px solid var(--primary);">
+                <h4>Upload Materi & Soal</h4>
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin: 6px 0;">Kelola Bahan Ajar & Bank Soal</p>
+                <button class="btn btn-primary" style="padding: 4px 12px; font-size: 0.8rem;" onclick="switchPage('upload-materi')">Kelola Upload</button>
+            </div>
+            <div class="card" style="padding: 20px; border-left: 4px solid var(--primary);">
+                <h4>Input e-Rapor Merdeka</h4>
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin: 6px 0;">32/32 Nilai Siswa Terinput</p>
+                <button class="btn btn-primary" style="padding: 4px 12px; font-size: 0.8rem;" onclick="switchPage('erapor')">Kelola Nilai</button>
+            </div>
+            <div class="card" style="padding: 20px; border-left: 4px solid var(--accent);">
+                <h4>Bank Soal & Ujian CBT</h4>
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin: 6px 0;">2 Jadwal Ujian Aktif</p>
+                <button class="btn btn-primary" style="padding: 4px 12px; font-size: 0.8rem;" onclick="switchPage('cbt')">Buka Modul CBT</button>
+            </div>
+            <div class="card" style="padding: 20px; border-left: 4px solid #10B981;">
+                <h4>Verifikasi PPDB Online</h4>
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin: 6px 0;">15 Berkas Perlu Ditinjau</p>
+                <button class="btn btn-primary" style="padding: 4px 12px; font-size: 0.8rem;" onclick="switchPage('ppdb')">Cek Data PPDB</button>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="btn btn-outline" style="border-color: #EF4444; color: #EF4444;" onclick="logoutStaff()">Keluar / Logout</button>
+        </div>
+    </div>
+
+    <!-- Lightbox Element -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-img" id="lightbox-img" src="" alt="Zoomed view">
+    </div>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>SMP Al Islam Madani</h4>
+                <p>LMS Portal Pendidikan Islam Modern unggulan yang memadukan kedalaman ilmu syar'i, CBT Merdeka, dan e-Rapor Terintegrasi.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon">FB</a>
+                    <a href="#" class="social-icon">IG</a>
+                    <a href="#" class="social-icon">YT</a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Navigasi Cepat</h4>
+                <a href="#cbt" onclick="switchPage('cbt')">Ujian CBT AKM</a>
+                <a href="#upload-materi" onclick="switchPage('upload-materi')">Upload Materi & Soal</a>
+                <a href="#erapor" onclick="switchPage('erapor')">e-Rapor Merdeka</a>
+                <a href="#ppdb" onclick="switchPage('ppdb')">PPDB Online &amp; Biaya</a>
+                <a href="#login" onclick="switchPage('login')">Login Staff (Guru/Admin)</a>
+                <a href="#faq" onclick="switchPage('faq')">Pusat Bantuan</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Kontak & Alamat</h4>
+                <p>📍 Jl. Madani No. 45, Kompleks Pendidikan Islam</p>
+                <p>📞 (021) 8765-4321</p>
+                <p>✉️ info@smpalislammadani.sch.id</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2026 SMP Al Islam Madani. All Rights Reserved. Powered by Pure HTML/CSS/JS Engine.
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        function switchPage(pageId) {
+            const pages = document.querySelectorAll('.page-view');
+            pages.forEach(page => page.classList.remove('active'));
+
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            const activeLink = Array.from(navLinks).find(a => a.getAttribute('onclick') && a.getAttribute('onclick').includes(pageId));
+            if(activeLink) activeLink.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            document.getElementById('main-nav').classList.remove('mobile-open');
+
+            if (pageId === 'home') {
+                animateCounters();
+            }
+        }
+
+        const themeBtn = document.getElementById('theme-btn');
+        const themeIcon = document.getElementById('theme-icon');
+        const themeText = document.getElementById('theme-text');
+
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            
+            themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            themeText.textContent = newTheme === 'dark' ? 'Light' : 'Dark';
+        });
+
+        const mobileBtn = document.getElementById('mobile-btn');
+        const mainNav = document.getElementById('main-nav');
+
+        mobileBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('mobile-open');
+        });
+
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const particles = [];
+        for (let i = 0; i < 45; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 3 + 1,
+                dx: (Math.random() - 0.5) * 1.2,
+                dy: (Math.random() - 0.5) * 1.2,
+                alpha: Math.random() * 0.5 + 0.2
+            });
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+                ctx.fill();
+
+                p.x += p.dx;
+                p.y += p.dy;
+
+                if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+            });
+            requestAnimationFrame(drawParticles);
+        }
+        drawParticles();
+
+        let countersAnimated = false;
+
+        function animateCounters() {
+            if (countersAnimated) return;
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                let count = 0;
+                const speed = target / 50;
+
+                const updateCount = () => {
+                    count += speed;
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count);
+                        setTimeout(updateCount, 30);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+            countersAnimated = true;
+        }
+
+        window.addEventListener('DOMContentLoaded', animateCounters);
+
+        const faqQuestions = document.querySelectorAll('.faq-question');
+
+        faqQuestions.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.parentElement;
+                item.classList.toggle('active');
+                const span = btn.querySelector('span');
+                span.textContent = item.classList.contains('active') ? '-' : '+';
+            });
+        });
+
+        function openLightbox(imgUrl) {
+            document.getElementById('lightbox-img').src = imgUrl;
+            document.getElementById('lightbox').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            let isValid = true;
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (name.length < 3) {
+                document.getElementById('nameError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('nameError').style.display = 'none';
+            }
+
+            if (!email.includes('@') || !email.includes('.')) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('emailError').style.display = 'none';
+            }
+
+            if (phone.length < 8) {
+                document.getElementById('phoneError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('phoneError').style.display = 'none';
+            }
+
+            if (!message) {
+                document.getElementById('msgError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('msgError').style.display = 'none';
+            }
+
+            if (isValid) {
+                alert('Terima kasih! Pesan Anda telah terkirim. Tim SMP Al Islam Madani akan segera menghubungi Anda.');
+                document.getElementById('contactForm').reset();
+            }
+        }
+
+        function handlePPDBSubmit(e) {
+            e.preventDefault();
+            const nama = document.getElementById('nama_siswa').value;
+            alert('Pendaftaran PPDB atas nama ' + nama + ' Berhasil Dikirim!\n\nNomor Registrasi: PPDB-2026-' + Math.floor(1000 + Math.random() * 9000) + '\nSilakan periksa WhatsApp untuk detail Kode Bayar Virtual Account.');
+            document.getElementById('ppdbForm').reset();
+        }
+
+        function simulasiCBT() {
+            alert('Memulai Sistem Ujian CBT anti-curang...\nMode Fullscreen Aktif.');
+        }
+
+        /* --- HANDLER UNTUK UPLOAD MATERI DAN SOAL --- */
+        function handleUploadMateri(e) {
+            e.preventDefault();
+            const kelas = document.getElementById('materi_kelas').value;
+            const mapel = document.getElementById('materi_mapel').options[document.getElementById('materi_mapel').selectedIndex].text;
+            const judul = document.getElementById('materi_judul').value;
+
+            const tbody = document.querySelector('#tabelUploadStatus tbody');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><span class="badge-status badge-info">Modul Materi</span></td>
+                <td>${mapel} (Kelas ${kelas})</td>
+                <td>${judul}</td>
+                <td>Pengelola / Guru Logged-In</td>
+                <td>${new Date().toLocaleDateString('id-ID')}</td>
+                <td><span class="badge-status badge-success">Terpublikasi</span></td>
+                <td><button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.75rem; color: var(--primary); border-color: var(--primary);" onclick="alert('Membuka file modul...')">Prinjau</button></td>
+            `;
+            tbody.prepend(row);
+
+            alert('Materi "' + judul + '" berhasil diunggah dan terpublikasi di LMS Siswa!');
+            document.getElementById('formUploadMateri').reset();
+        }
+
+        function handleUploadSoal(e) {
+            e.preventDefault();
+            const jenis = document.getElementById('soal_jenis').value;
+            const target = document.getElementById('soal_target_tp').value;
+            const tipe = document.getElementById('soal_tipe').value;
+
+            const tbody = document.querySelector('#tabelUploadStatus tbody');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><span class="badge-status badge-warning">Bank Soal CBT</span></td>
+                <td>Mata Pelajaran Ujian</td>
+                <td>[${jenis}] ${target} (${tipe})</td>
+                <td>Pengelola / Guru Logged-In</td>
+                <td>${new Date().toLocaleDateString('id-ID')}</td>
+                <td><span class="badge-status badge-success">Siap Ujian</span></td>
+                <td><button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.75rem; color: var(--primary); border-color: var(--primary);" onclick="alert('Membuka bank soal...')">Prinjau</button></td>
+            `;
+            tbody.prepend(row);
+
+            alert('Soal Ujian CBT berhasil ditambahkan ke Bank Soal!');
+            document.getElementById('formUploadSoal').reset();
+        }
+
+        // --- JS LOGIC FOR STAFF LOGIN ---
+        function switchRole(role) {
+            const tabGuru = document.getElementById('tab-guru');
+            const tabAdmin = document.getElementById('tab-admin');
+            const identityLabel = document.getElementById('identityLabel');
+            const usernameInput = document.getElementById('username');
+            const btnLogin = document.getElementById('btnLogin');
+            const userRole = document.getElementById('userRole');
+
+            userRole.value = role;
+
+            if (role === 'admin') {
+                tabAdmin.style.background = 'var(--primary)';
+                tabAdmin.style.color = '#FFFFFF';
+                tabGuru.style.background = 'var(--bg-body)';
+                tabGuru.style.color = 'var(--text-main)';
+
+                identityLabel.textContent = 'Username / ID Admin';
+                usernameInput.placeholder = 'Masukkan Username Admin';
+                btnLogin.textContent = 'Masuk Portal Administrator';
+            } else {
+                tabGuru.style.background = 'var(--primary)';
+                tabGuru.style.color = '#FFFFFF';
+                tabAdmin.style.background = 'var(--bg-body)';
+                tabAdmin.style.color = 'var(--text-main)';
+
+                identityLabel.textContent = 'NIP / NUPTK Guru';
+                usernameInput.placeholder = 'Masukkan NIP / NUPTK';
+                btnLogin.textContent = 'Masuk Portal Guru';
+            }
+        }
+
+        function handleLoginSubmit(e) {
+            e.preventDefault();
+            
+            const role = document.getElementById('userRole').value;
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            let isValid = true;
+
+            if (!username) {
+                document.getElementById('usernameError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('usernameError').style.display = 'none';
+            }
+
+            if (password.length < 6) {
+                document.getElementById('passwordError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('passwordError').style.display = 'none';
+            }
+
+            if (isValid) {
+                const title = document.getElementById('dashboardTitle');
+                const subtitle = document.getElementById('dashboardSubtitle');
+
+                if (role === 'admin') {
+                    title.textContent = 'Dashboard Administrator';
+                    subtitle.textContent = 'Selamat datang, Admin Utama (IT & Sistem Sekolah)';
+                } else {
+                    title.textContent = 'Dashboard Guru';
+                    subtitle.textContent = 'Selamat datang kembali, Ust. Ahmad Fauzi, S.Pd.I';
+                }
+
+                alert('Login Berhasil sebagai ' + (role === 'admin' ? 'Administrator' : 'Guru') + '!');
+                document.getElementById('loginForm').reset();
+                switchPage('dashboard-staff');
+            }
+        }
+
+        function logoutStaff() {
+            alert('Anda telah keluar dari sistem.');
+            switchPage('home');
+        }
+
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
