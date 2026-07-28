@@ -170,6 +170,84 @@
 
     <!-- Sidebar Navigation -->
  <!-- KODE REVISI SIDEBAR DENGAN SUB-MENU COMPLETE -->
+    <!-- Main Content Area -->
+    <div id="content">
+        <!-- Top Navbar -->
+        <div class="top-navbar">
+            <div>
+                <h5 class="mb-0 fw-bold">Sistem Manajemen Sekolah & E-Rapor</h5>
+                <small class="text-muted">Versi 2.5 — GitHub Ready Standalone App</small>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <span class="badge bg-light text-dark border px-3 py-2"><i class="fa-solid fa-calendar me-1"></i> TA 2026/2027 Ganjil</span>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle rounded-pill px-3" type="button" id="userDropdown" data-bs-toggle="dropdown">
+                        <i class="fa-solid fa-circle-user me-1"></i> Administrator
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow">
+                        <li><a class="dropdown-item" href="#settings" data-bs-toggle="tab"><i class="fa-solid fa-gear me-2"></i> Pengaturan</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+
+            <!-- 1. EXECUTIVE OVERVIEW -->
+            <div class="tab-pane fade show active" id="overview">
+                <div class="row g-4 mb-4">
+                    <div class="col-md-3">
+                        <div class="card-custom stat-card">
+                            <div class="stat-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+                            <div>
+                                <small class="text-muted fw-semibold">Total Guru</small>
+                                <h3 class="mb-0 fw-bold">48</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card-custom stat-card">
+                            <div class="stat-icon" style="color: #05cd99; background: #e6f9f5;"><i class="fa-solid fa-users"></i></div>
+                            <div>
+                                <small class="text-muted fw-semibold">Total Siswa</small>
+                                <h3 class="mb-0 fw-bold">864</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card-custom stat-card">
+                            <div class="stat-icon" style="color: #ffb547; background: #fff8ec;"><i class="fa-solid fa-folder-open"></i></div>
+                            <div>
+                                <small class="text-muted fw-semibold">Bank Soal Aktif</small>
+                                <h3 class="mb-0 fw-bold">128</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card-custom stat-card">
+                            <div class="stat-icon" style="color: #e03137; background: #fde8e8;"><i class="fa-solid fa-file-pdf"></i></div>
+                            <div>
+                                <small class="text-muted fw-semibold">Rapor Ter-generate</small>
+                                <h3 class="mb-0 fw-bold">864</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-custom">
+                    <h5 class="fw-bold mb-3"><i class="fa-solid fa-rocket text-primary me-2"></i>Aksi Cepat Admin</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <button class="btn btn-outline-primary" onclick="switchTab('guru')"><i class="fa-solid fa-plus me-1"></i> Tambah Guru</button>
+                        <button class="btn btn-outline-primary" onclick="switchTab('siswa')"><i class="fa-solid fa-plus me-1"></i> Tambah Siswa</button>
+                        <button class="btn btn-outline-primary" onclick="switchTab('soal')"><i class="fa-solid fa-plus me-1"></i> Buat Soal Ujian</button>
+                        <button class="btn btn-outline-success" onclick="switchTab('hasil-cbt')"><i class="fa-solid fa-download me-1"></i> Download Hasil Ujian</button>
+                        <button class="btn btn-outline-danger" onclick="switchTab('raport')"><i class="fa-solid fa-file-arrow-down me-1"></i> Download E-Rapor PDF</button>
+                    </div>
+                </div>
+            </div>
 <aside class="sidebar bg-white border-end p-3" style="width: 280px; min-height: 100vh;">
     <!-- Logo & Header -->
     <div class="d-flex align-items-center gap-2 mb-4 px-2">
@@ -305,84 +383,6 @@
         </div>
     </div>
 </aside>
-    <!-- Main Content Area -->
-    <div id="content">
-        <!-- Top Navbar -->
-        <div class="top-navbar">
-            <div>
-                <h5 class="mb-0 fw-bold">Sistem Manajemen Sekolah & E-Rapor</h5>
-                <small class="text-muted">Versi 2.5 — GitHub Ready Standalone App</small>
-            </div>
-            <div class="d-flex align-items-center gap-3">
-                <span class="badge bg-light text-dark border px-3 py-2"><i class="fa-solid fa-calendar me-1"></i> TA 2026/2027 Ganjil</span>
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle rounded-pill px-3" type="button" id="userDropdown" data-bs-toggle="dropdown">
-                        <i class="fa-solid fa-circle-user me-1"></i> Administrator
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow">
-                        <li><a class="dropdown-item" href="#settings" data-bs-toggle="tab"><i class="fa-solid fa-gear me-2"></i> Pengaturan</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-right-from-bracket me-2"></i> Keluar</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tab Content -->
-        <div class="tab-content">
-
-            <!-- 1. EXECUTIVE OVERVIEW -->
-            <div class="tab-pane fade show active" id="overview">
-                <div class="row g-4 mb-4">
-                    <div class="col-md-3">
-                        <div class="card-custom stat-card">
-                            <div class="stat-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
-                            <div>
-                                <small class="text-muted fw-semibold">Total Guru</small>
-                                <h3 class="mb-0 fw-bold">48</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card-custom stat-card">
-                            <div class="stat-icon" style="color: #05cd99; background: #e6f9f5;"><i class="fa-solid fa-users"></i></div>
-                            <div>
-                                <small class="text-muted fw-semibold">Total Siswa</small>
-                                <h3 class="mb-0 fw-bold">864</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card-custom stat-card">
-                            <div class="stat-icon" style="color: #ffb547; background: #fff8ec;"><i class="fa-solid fa-folder-open"></i></div>
-                            <div>
-                                <small class="text-muted fw-semibold">Bank Soal Aktif</small>
-                                <h3 class="mb-0 fw-bold">128</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card-custom stat-card">
-                            <div class="stat-icon" style="color: #e03137; background: #fde8e8;"><i class="fa-solid fa-file-pdf"></i></div>
-                            <div>
-                                <small class="text-muted fw-semibold">Rapor Ter-generate</small>
-                                <h3 class="mb-0 fw-bold">864</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-custom">
-                    <h5 class="fw-bold mb-3"><i class="fa-solid fa-rocket text-primary me-2"></i>Aksi Cepat Admin</h5>
-                    <div class="d-flex flex-wrap gap-2">
-                        <button class="btn btn-outline-primary" onclick="switchTab('guru')"><i class="fa-solid fa-plus me-1"></i> Tambah Guru</button>
-                        <button class="btn btn-outline-primary" onclick="switchTab('siswa')"><i class="fa-solid fa-plus me-1"></i> Tambah Siswa</button>
-                        <button class="btn btn-outline-primary" onclick="switchTab('soal')"><i class="fa-solid fa-plus me-1"></i> Buat Soal Ujian</button>
-                        <button class="btn btn-outline-success" onclick="switchTab('hasil-cbt')"><i class="fa-solid fa-download me-1"></i> Download Hasil Ujian</button>
-                        <button class="btn btn-outline-danger" onclick="switchTab('raport')"><i class="fa-solid fa-file-arrow-down me-1"></i> Download E-Rapor PDF</button>
-                    </div>
-                </div>
-            </div>
 
             <!-- 2. DATA GURU -->
             <div class="tab-pane fade" id="guru">
